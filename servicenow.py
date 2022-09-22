@@ -35,13 +35,13 @@ def connectToServiceNowIncidentChange(incident_change_id) :
     
 def collectData() :
     # Caller
-    caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').text.encode('ascii', 'ignore')
+    global caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').text.encode('ascii', 'ignore')
 
     # Short description (incidentTitle)
-    incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').text.encode('ascii', 'ignore')
+    global incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').text.encode('ascii', 'ignore')
 
     # Description (description_text)
-    description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]"]').text.encode('ascii', 'ignore')
+    global description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]"]').text.encode('ascii', 'ignore')
 
 # Testing 
 # # Open Browser
