@@ -50,7 +50,7 @@ def collectData() :
 
     # Description (description_text)
     global description_text
-    description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]"]').text.encode('ascii', 'ignore')
+    description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]').text.encode('ascii', 'ignore')
 
 # # Testing 
 # # Open Browser
