@@ -1,0 +1,57 @@
+from Tools import tools_v000 as tools
+import os
+from os.path import dirname
+from selenium.webdriver.common.keys import Keys
+import time
+
+
+# -10 for the name of this project ServiceNow
+save_path = os.path.dirname(os.path.abspath("__file__"))
+propertiesFolder_path = save_path + "/"+ "Properties"
+
+# Example of used
+incident_change_id = tools.readProperty(propertiesFolder_path, 'ServiceNow', 'incident_change_id=')
+user_name = tools.readProperty(propertiesFolder_path, 'ServiceNow', 'user_name=')
+
+caller = ""
+incidentTitle = ""
+description_text = ""
+
+
+def connectToServiceNow(user_name) :
+    tools.driver.get("https://nn.service-now.com")
+    
+    # place the username :
+    tools.waitLoadingPageByID2(20, 'i0116')
+    username_input = tools.driver.find_element_by_id('i0116')
+    username_input.send_keys(user_name)
+    username_input.send_keys(Keys.ENTER)
+
+def connectToServiceNowIncidentChange(incident) :
+    tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident)
+    
+    # Need to wait the load of the incident or change 
+    tools.waitLoadingPageByXPATH2(20, '//*[@id="label.incident.number"]/label/span[2]')
+    
+def collectData() :
+    # Caller
+    caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').text.encode('ascii', 'ignore')
+
+    # Short description (incidentTitle)
+    incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').text.encode('ascii', 'ignore')
+
+    # Description (description_text)
+    description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]"]').text.encode('ascii', 'ignore')
+ 
+# Open Browser
+tools.openBrowserChrome()   
+
+# Connect to ServiceNow
+connectToServiceNow(user_name);
+
+# Go to the incident or change
+connectToServiceNowIncidentChange(incident_change_id);
+
+# Need to collect data
+collectData()
+
