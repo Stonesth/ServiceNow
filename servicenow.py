@@ -27,12 +27,14 @@ def connectToServiceNow(user_name) :
     while (tools.driver.find_element_by_id('i0116')) :
         username_input = tools.driver.find_element_by_id('i0116')
         username_input.send_keys(user_name)
+        time.sleep(1)
         username_input.send_keys(Keys.ENTER)
+        time.sleep(1)
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
     
-    # Need to wait the load of the incident or change 
+    # Need to wait the load of the page
     tools.waitLoadingPageByXPATH2(20, '//*[@id="label.incident.number"]/label/span[2]')
     
 def collectData() :
