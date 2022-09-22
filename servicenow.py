@@ -37,16 +37,16 @@ def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
     
     # Need to wait the load of the page
-    tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
+    tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_readonly.incident.number"]')
     
 def collectData() :
     # Caller
     global caller
-    caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').text.encode('ascii', 'ignore')
+    caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]')
 
     # Short description (incidentTitle)
     global incidentTitle
-    incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').text.encode('ascii', 'ignore')
+    incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]')
 
     # Description (description_text)
     global description_text
