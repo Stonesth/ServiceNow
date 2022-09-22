@@ -23,9 +23,11 @@ def connectToServiceNow(user_name) :
     
     # place the username :
     tools.waitLoadingPageByID2(20, 'i0116')
-    username_input = tools.driver.find_element_by_id('i0116')
-    username_input.send_keys(user_name)
-    username_input.send_keys(Keys.ENTER)
+    
+    while (tools.driver.find_element_by_id('i0116')) :
+        username_input = tools.driver.find_element_by_id('i0116')
+        username_input.send_keys(user_name)
+        username_input.send_keys(Keys.ENTER)
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
@@ -46,7 +48,7 @@ def collectData() :
     global description_text
     description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]"]').text.encode('ascii', 'ignore')
 
-# Testing 
+# # Testing 
 # # Open Browser
 # tools.openBrowserChrome()   
 
