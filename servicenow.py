@@ -29,12 +29,15 @@ def connectToServiceNow(user_name) :
     time.sleep(1)
     username_input.send_keys(Keys.ENTER)
     time.sleep(1)
+    
+    # Need to wait the load of the page
+    tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
     
     # Need to wait the load of the page
-    tools.waitLoadingPageByXPATH2(20, '//*[@id="label.incident.number"]/label/span[2]')
+    tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
     
 def collectData() :
     # Caller
