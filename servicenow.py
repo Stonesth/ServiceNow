@@ -27,8 +27,8 @@ def connectToServiceNow(user_name) :
     username_input.send_keys(user_name)
     username_input.send_keys(Keys.ENTER)
 
-def connectToServiceNowIncidentChange(incident) :
-    tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident)
+def connectToServiceNowIncidentChange(incident_change_id) :
+    tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
     
     # Need to wait the load of the incident or change 
     tools.waitLoadingPageByXPATH2(20, '//*[@id="label.incident.number"]/label/span[2]')
