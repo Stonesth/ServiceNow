@@ -24,12 +24,11 @@ def connectToServiceNow(user_name) :
     # place the username :
     tools.waitLoadingPageByID2(20, 'i0116')
     
-    while (tools.driver.find_element_by_id('i0116')) :
-        username_input = tools.driver.find_element_by_id('i0116')
-        username_input.send_keys(user_name)
-        time.sleep(1)
-        username_input.send_keys(Keys.ENTER)
-        time.sleep(1)
+    username_input = tools.driver.find_element_by_id('i0116')
+    username_input.send_keys(user_name)
+    time.sleep(1)
+    username_input.send_keys(Keys.ENTER)
+    time.sleep(1)
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
