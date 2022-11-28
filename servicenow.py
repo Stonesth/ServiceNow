@@ -40,17 +40,31 @@ def connectToServiceNowIncidentChange(incident_change_id) :
     tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_readonly.incident.number"]')
     
 def collectData() :
-    # Caller
-    global caller
-    caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
+    # Need to check if it's an incident/change or a Problem issue
+    if (tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_display.incident.caller_id"]')) :
+        # Caller
+        global caller
+        caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
 
-    # Short description (incidentTitle)
-    global incidentTitle
-    incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8')
+        # Short description (incidentTitle)
+        global incidentTitle
+        incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8')
 
-    # Description (description_text)
-    global description_text
-    description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]').text.encode('ascii', 'ignore')
+        # Description (description_text)
+        global description_text
+        description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]').text.encode('ascii', 'ignore')
+    else :
+        # Open by
+        global caller
+        caller = tools.driver.find_element_by_xpath('//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8')
+
+        # Short description (incidentTitle)
+        global incidentTitle
+        incidentTitle = tools.driver.find_element_by_xpath('//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8')
+
+        # Description (description_text)
+        global description_text
+        description_text = tools.driver.find_element_by_xpath('//*[@id="problem_task.description"]').text.encode('ascii', 'ignore')
 
 # # Testing 
 # # Open Browser
