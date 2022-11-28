@@ -41,7 +41,7 @@ def connectToServiceNowIncidentChange(incident_change_id) :
     
 def collectData() :
     # Need to check if it's an incident/change or a Problem issue
-    if (tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_display.incident.caller_id"]')) :
+    if (tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_readonly.incident.number"]')) :
         # Caller
         global caller
         caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
