@@ -38,42 +38,38 @@ def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)    
     
 def collectData() :
+    global caller, incidentTitle, description_text  # Déclarer les variables globales ici
+
     # Need to check if it's an incident/change or a Problem issue
     if (tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_readonly.incident.number"]')) :
         # Caller
-        global caller
         caller = tools.driver.find_element(By.XPATH, '//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
 
         # Short description (incidentTitle)
-        global incidentTitle
         incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8')
 
         # Description (description_text)
-        global description_text
         description_text = tools.driver.find_element(By.XPATH, '//*[@id="incident.description"]').text.encode('ascii', 'ignore').decode()
     else :
         # Open by
-        global caller
         caller = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8')
 
         # Short description (incidentTitle)
-        global incidentTitle
         incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8')
 
         # Description (description_text)
-        global description_text
         description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore').decode()
 
-# # Testing 
-# # Open Browser
-# tools.openBrowserChrome()   
+# Testing 
+# Open Browser
+tools.openBrowserChrome()   
 
-# # Connect to ServiceNow
-# connectToServiceNow(user_name);
+# Connect to ServiceNow
+connectToServiceNow(user_name);
 
-# # Go to the incident or change
-# connectToServiceNowIncidentChange(incident_change_id);
+# Go to the incident or change
+connectToServiceNowIncidentChange(incident_change_id);
 
-# # Need to collect data
-# collectData()
+# Need to collect data
+collectData()
 
