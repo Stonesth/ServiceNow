@@ -2,6 +2,7 @@ from Tools import tools_v000 as tools
 import os
 from os.path import dirname
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import time
 
 
@@ -24,7 +25,7 @@ def connectToServiceNow(user_name) :
     # place the username :
     tools.waitLoadingPageByID2(20, 'i0116')
     
-    username_input = tools.driver.find_element_by_id('i0116')
+    username_input = tools.driver.find_element(By.ID, 'i0116')
     username_input.send_keys(user_name)
     time.sleep(1)
     username_input.send_keys(Keys.ENTER)
@@ -41,27 +42,27 @@ def collectData() :
     if (tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_readonly.incident.number"]')) :
         # Caller
         global caller
-        caller = tools.driver.find_element_by_xpath('//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
+        caller = tools.driver.find_element(By.XPATH, '//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
 
         # Short description (incidentTitle)
         global incidentTitle
-        incidentTitle = tools.driver.find_element_by_xpath('//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8')
+        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8')
 
         # Description (description_text)
         global description_text
-        description_text = tools.driver.find_element_by_xpath('//*[@id="incident.description"]').text.encode('ascii', 'ignore')
+        description_text = tools.driver.find_element(By.XPATH, '//*[@id="incident.description"]').text.encode('ascii', 'ignore')
     else :
         # Open by
         global caller
-        caller = tools.driver.find_element_by_xpath('//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8')
+        caller = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8')
 
         # Short description (incidentTitle)
         global incidentTitle
-        incidentTitle = tools.driver.find_element_by_xpath('//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8')
+        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8')
 
         # Description (description_text)
         global description_text
-        description_text = tools.driver.find_element_by_xpath('//*[@id="problem_task.description"]').text.encode('ascii', 'ignore')
+        description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore')
 
 # # Testing 
 # # Open Browser
