@@ -43,19 +43,19 @@ def collectData() :
     # Need to check if it's an incident/change or a Problem issue
     if (tools.waitLoadingPageByXPATH2(20, '//*[@id="sys_readonly.incident.number"]')) :
         # Caller
-        caller = tools.driver.find_element(By.XPATH, '//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8')
+        caller = tools.driver.find_element(By.XPATH, '//*[@id="sys_display.incident.caller_id"]').get_attribute('value').encode('utf-8').decode()
 
         # Short description (incidentTitle)
-        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8')
+        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="incident.short_description"]').get_attribute('value').encode('utf-8').decode()
 
         # Description (description_text)
         description_text = tools.driver.find_element(By.XPATH, '//*[@id="incident.description"]').text.encode('ascii', 'ignore').decode()
     else :
         # Open by
-        caller = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8')
+        caller = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8').decode()
 
         # Short description (incidentTitle)
-        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8')
+        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8').decode()
 
         # Description (description_text)
         description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore').decode()
