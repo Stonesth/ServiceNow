@@ -50,7 +50,7 @@ def collectData() :
 
         # Description (description_text)
         global description_text
-        description_text = tools.driver.find_element(By.XPATH, '//*[@id="incident.description"]').text.encode('ascii', 'ignore')
+        description_text = tools.driver.find_element(By.XPATH, '//*[@id="incident.description"]').text.encode('ascii', 'ignore').decode()
     else :
         # Open by
         global caller
@@ -62,7 +62,7 @@ def collectData() :
 
         # Description (description_text)
         global description_text
-        description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore')
+        description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore').decode()
 
 # # Testing 
 # # Open Browser
