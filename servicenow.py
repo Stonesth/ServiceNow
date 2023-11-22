@@ -60,16 +60,16 @@ def collectData() :
         # Description (description_text)
         description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore').decode()
 
-# Testing 
-# Open Browser
-tools.openBrowserChrome()   
+# # Testing 
+# # Open Browser
+# tools.openBrowserChrome()   
 
-# Connect to ServiceNow
-connectToServiceNow(user_name);
+# # Connect to ServiceNow
+# connectToServiceNow(user_name);
 
-# Go to the incident or change
-connectToServiceNowIncidentChange(incident_change_id);
+# # Go to the incident or change
+# connectToServiceNowIncidentChange(incident_change_id);
 
-# Need to collect data
-collectData()
+# # Need to collect data
+# collectData()
 
