@@ -52,13 +52,16 @@ def collectData() :
         description_text = tools.driver.find_element(By.XPATH, '//*[@id="incident.description"]').text.encode('ascii', 'ignore').decode()
     else :
         # Open by
-        caller = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8').decode()
-
+        # caller = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.opened_by_label"]').get_attribute('value').encode('utf-8').decode()
+        caller = tools.driver.find_element(By.XPATH, '//*[@id="problem.opened_by_label"]').get_attribute('value').encode('utf-8').decode()
+        
         # Short description (incidentTitle)
-        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8').decode()
+        # incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.short_description"]').get_attribute('value').encode('utf-8').decode()
+        incidentTitle = tools.driver.find_element(By.XPATH, '//*[@id="problem.short_description"]').get_attribute('value').encode('utf-8').decode()
 
         # Description (description_text)
-        description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore').decode()
+        # description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem_task.description"]').text.encode('ascii', 'ignore').decode()
+        description_text = tools.driver.find_element(By.XPATH, '//*[@id="problem.description"]').text.encode('ascii', 'ignore').decode()
 
 # # Testing 
 # # Open Browser
