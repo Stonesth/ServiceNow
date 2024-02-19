@@ -18,7 +18,7 @@ caller = ""
 incidentTitle = ""
 description_text = ""
 
-delay_properties = 10
+delay_properties = 15
 
 def connectToServiceNow(user_name) :
     tools.driver.get("https://nn.service-now.com")
