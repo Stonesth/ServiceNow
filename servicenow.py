@@ -32,12 +32,6 @@ def connectToServiceNow(user_name) :
     username_input.send_keys(Keys.ENTER)
     time.sleep(1)
     
-    # Need to wait the load of the page
-    tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
-
-def connectToServiceNowIncidentChange(incident_change_id) :
-    tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
-
     # Need to test if the connection is succeed or not
     # Test if there is or not another possibility to connect
     if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
@@ -49,6 +43,11 @@ def connectToServiceNowIncidentChange(incident_change_id) :
         verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
         verificationOption1.click()
 
+    # Need to wait the load of the page
+    tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
+
+def connectToServiceNowIncidentChange(incident_change_id) :
+    tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
     
 def collectData() :
     global caller, incidentTitle, description_text  # Déclarer les variables globales ici
