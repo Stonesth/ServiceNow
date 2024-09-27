@@ -23,28 +23,30 @@ delay_properties = 15
 def connectToServiceNow(user_name) :
     tools.driver.get("https://nn.service-now.com")
     
-    # place the username :
-    tools.waitLoadingPageByID2(20, 'i0116')
+    # # place the username :
+    # tools.waitLoadingPageByID2(20, 'i0116')
     
-    username_input = tools.driver.find_element(By.ID, 'i0116')
-    username_input.send_keys(user_name)
-    time.sleep(1)
-    username_input.send_keys(Keys.ENTER)
-    time.sleep(1)
+    # username_input = tools.driver.find_element(By.ID, 'i0116')
+    # username_input.send_keys(user_name)
+    # time.sleep(1)
+    # username_input.send_keys(Keys.ENTER)
+    # time.sleep(1)
     
-    # Need to test if the connection is succeed or not
-    # Test if there is or not another possibility to connect
-    if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
-        otherConnection = tools.driver.find_element(By.XPATH, '//*[@id="differentVerificationOption"]')
-        otherConnection.click()
+    # # Need to test if the connection is succeed or not
+    # # Test if there is or not another possibility to connect
+    # if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
+    #     otherConnection = tools.driver.find_element(By.XPATH, '//*[@id="differentVerificationOption"]')
+    #     otherConnection.click()
 
-        # Used the validation via the app
-        tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="verificationOption1"]')
-        verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
-        verificationOption1.click()
+    #     # Used the validation via the app
+    #     tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="verificationOption1"]')
+    #     verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
+    #     verificationOption1.click()
 
-    # Need to wait the load of the page
-    tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
+    # # Need to wait the load of the page
+    # tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
+
+    tools.waitLoadingPageByXPATH2(20, '//*[@id="item-agent_avatar"]//span/span/span/span/span')
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
