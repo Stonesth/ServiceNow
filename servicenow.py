@@ -46,7 +46,7 @@ def connectToServiceNow(user_name) :
     # # Need to wait the load of the page
     # tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
 
-    tools.waitLoadingPageByXPATH2(20, '//*[@id="item-heading_greeting"]//h1')
+    tools.waitLoadingPageByXPATH2(5, '//*[@id="item-stylized_text_1"]//div/div')
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
