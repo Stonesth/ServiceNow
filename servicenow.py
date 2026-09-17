@@ -29,32 +29,38 @@ def connectToServiceNow(user_name) :
     # cached, valid SSO session cookie. That cached cookie has since expired,
     # which is why the connection now fails ("Loading took too much time!").
     # Restoring the actual login flow (username + MFA app push approval).
+    #
+    # With the dedicated managed Edge profile, Windows SSO (PRT) may log the
+    # user in silently without ever showing the username field, so this step
+    # must not crash when the field never appears - it just means we're
+    # already authenticated.
 
-    # place the username :
-    tools.waitLoadingPageByID2(20, 'i0116')
+    # place the username, only if the login page is actually shown :
+    if tools.waitLoadingPageByID2(20, 'i0116') :
+        username_input = tools.driver.find_element(By.ID, 'i0116')
+        username_input.send_keys(user_name)
+        time.sleep(1)
+        username_input.send_keys(Keys.ENTER)
+        time.sleep(1)
 
-    username_input = tools.driver.find_element(By.ID, 'i0116')
-    username_input.send_keys(user_name)
-    time.sleep(1)
-    username_input.send_keys(Keys.ENTER)
-    time.sleep(1)
+        # Need to test if the connection is succeed or not
+        # Test if there is or not another possibility to connect
+        if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
+            otherConnection = tools.driver.find_element(By.XPATH, '//*[@id="differentVerificationOption"]')
+            otherConnection.click()
 
-    # Need to test if the connection is succeed or not
-    # Test if there is or not another possibility to connect
-    if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
-        otherConnection = tools.driver.find_element(By.XPATH, '//*[@id="differentVerificationOption"]')
-        otherConnection.click()
+            # Used the validation via the app
+            tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="verificationOption1"]')
+            verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
+            verificationOption1.click()
 
-        # Used the validation via the app
-        tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="verificationOption1"]')
-        verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
-        verificationOption1.click()
+        print("En attente de la validation MFA (approuver la notification push sur le telephone)...")
 
-    print("En attente de la validation MFA (approuver la notification push sur le telephone)...")
-
-    # Need to wait the load of the page - longer delay to leave time for the
-    # user to approve the MFA push notification on their phone.
-    tools.waitLoadingPageByXPATH2(60, '//*[@id="item-stylized_text_1"]')
+        # Need to wait the load of the page - longer delay to leave time for the
+        # user to approve the MFA push notification on their phone.
+        tools.waitLoadingPageByXPATH2(60, '//*[@id="item-stylized_text_1"]')
+    else :
+        print("Pas de formulaire de login affiche - session SSO deja active.")
 
     # Debug screenshot : allows diagnosing login/redirect issues without
     # needing a manual print-screen from the user.
