@@ -22,31 +22,39 @@ delay_properties = 15
 
 def connectToServiceNow(user_name) :
     tools.driver.get("https://nn.service-now.com")
-    
-    # # place the username :
-    # tools.waitLoadingPageByID2(20, 'i0116')
-    
-    # username_input = tools.driver.find_element(By.ID, 'i0116')
-    # username_input.send_keys(user_name)
-    # time.sleep(1)
-    # username_input.send_keys(Keys.ENTER)
-    # time.sleep(1)
-    
-    # # Need to test if the connection is succeed or not
-    # # Test if there is or not another possibility to connect
-    # if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
-    #     otherConnection = tools.driver.find_element(By.XPATH, '//*[@id="differentVerificationOption"]')
-    #     otherConnection.click()
 
-    #     # Used the validation via the app
-    #     tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="verificationOption1"]')
-    #     verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
-    #     verificationOption1.click()
+    # Restored 2026-09-17 : the real SSO login steps below were commented out
+    # in commit a95be9c (2024-09-27), and the automation kept working only
+    # because the Chrome automation profile (BraveUserData) still had a
+    # cached, valid SSO session cookie. That cached cookie has since expired,
+    # which is why the connection now fails ("Loading took too much time!").
+    # Restoring the actual login flow (username + MFA app push approval).
 
-    # # Need to wait the load of the page
-    # tools.waitLoadingPageByXPATH2(20, '//*[@id="user_info_dropdown"]/div/span[1]')
+    # place the username :
+    tools.waitLoadingPageByID2(20, 'i0116')
 
-    tools.waitLoadingPageByXPATH2(5, '//*[@id="item-stylized_text_1"]')
+    username_input = tools.driver.find_element(By.ID, 'i0116')
+    username_input.send_keys(user_name)
+    time.sleep(1)
+    username_input.send_keys(Keys.ENTER)
+    time.sleep(1)
+
+    # Need to test if the connection is succeed or not
+    # Test if there is or not another possibility to connect
+    if tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="differentVerificationOption"]') :
+        otherConnection = tools.driver.find_element(By.XPATH, '//*[@id="differentVerificationOption"]')
+        otherConnection.click()
+
+        # Used the validation via the app
+        tools.waitLoadingPageByXPATH2(delay_properties, '//*[@id="verificationOption1"]')
+        verificationOption1 = tools.driver.find_element(By.XPATH, '//*[@id="verificationOption1"]')
+        verificationOption1.click()
+
+    print("En attente de la validation MFA (approuver la notification push sur le telephone)...")
+
+    # Need to wait the load of the page - longer delay to leave time for the
+    # user to approve the MFA push notification on their phone.
+    tools.waitLoadingPageByXPATH2(60, '//*[@id="item-stylized_text_1"]')
 
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
