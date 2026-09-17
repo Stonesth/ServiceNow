@@ -56,9 +56,24 @@ def connectToServiceNow(user_name) :
     # user to approve the MFA push notification on their phone.
     tools.waitLoadingPageByXPATH2(60, '//*[@id="item-stylized_text_1"]')
 
+    # Debug screenshot : allows diagnosing login/redirect issues without
+    # needing a manual print-screen from the user.
+    try :
+        tools.driver.save_screenshot(save_path + "/debug_after_login.png")
+    except Exception :
+        pass
+
 def connectToServiceNowIncidentChange(incident_change_id) :
     tools.driver.get("https://nn.service-now.com/text_search_exact_match.do?sysparm_search=" + incident_change_id)
-    
+
+    # Debug screenshot : capture the state of the page right after navigating
+    # to the incident/change search URL, before trying to read any field.
+    time.sleep(2)
+    try :
+        tools.driver.save_screenshot(save_path + "/debug_after_search.png")
+    except Exception :
+        pass
+
 def collectData() :
     global caller, incidentTitle, description_text  # Déclarer les variables globales ici
 
